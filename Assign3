@@ -1,0 +1,60 @@
+//Created by: Khoa Le
+//Created on: March 18
+//This program is a binary search. Generating 250 random numbers. User can input a number and computer will return
+//position of number.
+
+import java.util.*;
+
+public class Assign3 {
+
+	public static void main(String[] args) {
+		
+		int numPosition,userNum = 0,i;
+		
+		//Creates an array with 250 slots.
+		int[] numList = new int[250];
+		
+		//Generates random numbers from 1 - 250 and puts them in the array.
+		for (i = 0; i < numList.length; i++) {
+			numList[i] = (int)(Math.random() * (251 - 1) + 1);
+			
+		}
+		
+		//Sorts the array.
+		Arrays.sort(numList);
+
+		System.out.println("This list has 250 randomly generated numbers. Enter a number and the computer will find it's position: " + Arrays.toString(numList));
+		Scanner userInput = new Scanner(System.in);
+		userNum = userInput.nextInt();
+		numPosition = binarySearch(numList, userNum);
+		
+		//If statement to print if the number is in the list or not.
+		if (numPosition != -1) {
+			System.out.println("The number " + userNum + " is found at " + numPosition + ".");
+		}
+		else {
+			System.out.println("The number " + userNum + " is not in the list.");
+		}
+	}
+
+	public static int binarySearch(int[] array, int userNum) {
+		
+		int first = 0, middle, last;
+		last = array.length-1;
+		
+		//While loop to find the user's number position.
+		while (first <= last) {
+			middle = (first + last) / 2;
+			if (array[middle] == userNum) {
+				return middle;
+			}
+			else if (array[middle] < userNum) {
+				first = middle + 1;
+			}
+			else {
+				last = middle -1;
+			}
+		}
+		return -1;
+	}
+}
